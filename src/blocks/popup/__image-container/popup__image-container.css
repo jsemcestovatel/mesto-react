@@ -1,0 +1,12 @@
+.popup__image-container {
+  position: relative;
+  margin: 0;
+  box-sizing: border-box;
+  color: var(--color-white);
+}
+
+@media screen and (max-width: 320px) {
+  .popup__image-container {
+    width: 240px;
+  }
+}

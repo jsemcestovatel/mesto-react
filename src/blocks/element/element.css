@@ -1,0 +1,7 @@
+.element {
+  position: relative;
+  width: 282px;
+  border-radius: 10px;
+  background-color: var(--color-white);
+  overflow: hidden;
+}

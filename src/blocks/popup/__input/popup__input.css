@@ -1,0 +1,18 @@
+.popup__input {
+  font-family: inherit;
+  font-size: 14px;
+  line-height: 1;
+  padding-bottom: 13px;
+  border: 0px;
+  border-bottom: 1px solid var(--color-ground);
+}
+
+.popup__input::placeholder {
+  color: var(--color-ground);
+}
+
+@media screen and (max-width: 620px) {
+  .popup__input:last-of-type {
+    margin-top: 6px;
+  }
+}

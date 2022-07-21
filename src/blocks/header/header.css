@@ -1,0 +1,4 @@
+.header {
+  border-bottom: solid 1px var(--color-grey70);
+  box-sizing: border-box;
+}

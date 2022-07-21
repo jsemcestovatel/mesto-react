@@ -1,0 +1,7 @@
+.spinner {
+  width: 1em;
+  height: 1em;
+  margin: 250px auto;
+  border-radius: 50%;
+  display: none;
+}
