@@ -1,6 +1,6 @@
 function ImagePopup(props) {
   return (
-    <section className={`popup popup_type_${props.name} ${props.card.link !='' ? `popup_opened ` : ``}popup_dark`}>
+    <section className={`popup popup_type_${props.name} ${props.card.link !=='' ? `popup_opened ` : ``}popup_dark`}>
       <figure className="popup__image-container">
         <button
           aria-label="Закрыть окно"

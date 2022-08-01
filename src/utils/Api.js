@@ -30,13 +30,11 @@ class Api {
     .then(this._checkResponse);
   }
 
-  updateAvatarApi(data) {
+  setUserAvatarApi(data) {
     return fetch(`${this._baseUrl}/users/me/avatar`, {
       method: 'PATCH',
       headers: this._headers,
-      body: JSON.stringify({
-        avatar: data["avatar-link"]
-      })
+      body: JSON.stringify(data)
     })
     .then(this._checkResponse);
   }
@@ -61,12 +59,28 @@ class Api {
     .then(this._checkResponse);
   }
 
-  deleteCardApi(data) {
-    return fetch(`${this._baseUrl}/cards/${data._cardID}`, {
+  deleteCardApi(_id) {
+    return fetch(`${this._baseUrl}/cards/${_id}`, {
       method: 'DELETE',
       headers: this._headers
     })
     .then(this._checkResponse);
+  }
+
+  changeLikeCardStatus(_id,action) {
+    if (action) {
+      return fetch(`${this._baseUrl}/cards/${_id}/likes`, {
+        method: 'DELETE',
+        headers: this._headers
+      })
+      .then(this._checkResponse);  
+    } else {
+      return fetch(`${this._baseUrl}/cards/${_id}/likes`, {
+        method: 'PUT',
+        headers: this._headers
+      })
+      .then(this._checkResponse);
+    }
   }
 
   likeCardApi(data) {

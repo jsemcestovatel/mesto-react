@@ -63,7 +63,3 @@ export const buttonAddElement = profile.querySelector(".profile__add-button");
 export const formUpdateAvatar = document.forms.popupUpdateAvatar;
 export const formEditProfile = document.forms.popupEditProfile;
 export const formAddElement = document.forms.popupAddElement;
-
-export function renderLoadingMessage(popupElement, text) {
-  popupElement.querySelector(".popup__submit-button").innerText = text;
-}

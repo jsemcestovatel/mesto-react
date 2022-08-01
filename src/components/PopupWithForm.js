@@ -13,6 +13,7 @@ function PopupWithForm(props) {
           name={props.name}
           encType="text/plain"
           className="popup__form"
+          onSubmit={props.onSubmit}
           noValidate
         >
           {props.children}
