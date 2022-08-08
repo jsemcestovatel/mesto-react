@@ -1,16 +1,16 @@
 import React from "react";
 import PopupWithForm from "./PopupWithForm";
 
-function EditAvatarPopup(props) {
-  const [buttonName, setButtonName] = React.useState(props.buttonNameDefault);
+function EditAvatarPopup({buttonNameDefault, buttonNameAction, isOpen, onClose, onUpdateAvatar}) {
+  const [buttonName, setButtonName] = React.useState(buttonNameDefault);
   const url = React.useRef();
 
   function handleSubmit(evt) {
     // Запрещаем браузеру переходить по адресу формы
     evt.preventDefault();
-    setButtonName(props.buttonNameAction);
+    setButtonName(buttonNameAction);
     // Передаём значения компонента с помощью REF во внешний обработчик
-    props.onUpdateAvatar({
+    onUpdateAvatar({
       avatar: url.current.value
     });
   }
@@ -19,9 +19,9 @@ function EditAvatarPopup(props) {
     <PopupWithForm
       title="Обновить аватар"
       name="updateavatar"
-      button={buttonName}
-      isOpen={props.isOpen}
-      onClose={props.onClose}
+      buttontext={buttonName}
+      isOpen={isOpen}
+      onClose={onClose}
       onSubmit={handleSubmit}
     >
       <input

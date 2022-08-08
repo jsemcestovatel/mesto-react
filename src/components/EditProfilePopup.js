@@ -2,18 +2,18 @@ import React from "react";
 import PopupWithForm from "./PopupWithForm";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
-function EditProfilePopup(props) {
+function EditProfilePopup({buttonNameAction, buttonNameDefault, isOpen, onClose, onUpdateUser}) {
   const currentUser = React.useContext(CurrentUserContext);
-  const [name, setName] = React.useState('');
-  const [description, setDescription] = React.useState('');
-  const [buttonName, setButtonName] = React.useState(props.buttonNameDefault);
+  const [name, setName] = React.useState("");
+  const [description, setDescription] = React.useState("");
+  const [buttonName, setButtonName] = React.useState(buttonNameDefault);
 
   // После загрузки текущего пользователя из API его данные будут использованы в управляемых компонентах
   React.useEffect(() => {
     setName(currentUser.name);
     setDescription(currentUser.about);
-    setButtonName(props.buttonNameDefault);
-  }, [currentUser]);
+    setButtonName(buttonNameDefault);
+  }, [currentUser, isOpen]);
 
   function handleNameChange(evt) {
     setName(evt.target.value);
@@ -26,21 +26,21 @@ function EditProfilePopup(props) {
   function handleSubmit(evt) {
     // Запрещаем браузеру переходить по адресу формы
     evt.preventDefault();
-    setButtonName(props.buttonNameAction);
+    setButtonName(buttonNameAction);
     // Передаём значения управляемых компонентов во внешний обработчик
-    props.onUpdateUser({
+    onUpdateUser({
       name,
       about: description,
     });
   }
-  
+
   return (
     <PopupWithForm
       title="Редактировать профиль"
       name="editprofile"
-      button={buttonName}
-      isOpen={props.isOpen}
-      onClose={props.onClose}
+      buttontext={buttonName}
+      isOpen={isOpen}
+      onClose={onClose}
       onSubmit={handleSubmit}
     >
       <input
@@ -51,7 +51,7 @@ function EditProfilePopup(props) {
         placeholder="Имя"
         minLength="2"
         maxLength="40"
-        value={name}
+        value={name || ""}
         onChange={handleNameChange}
         required
       />
@@ -64,7 +64,7 @@ function EditProfilePopup(props) {
         placeholder="О себе"
         minLength="2"
         maxLength="200"
-        value={description}
+        value={description || ""}
         onChange={handleDescriptionChange}
         required
       />

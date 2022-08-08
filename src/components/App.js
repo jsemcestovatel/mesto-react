@@ -24,9 +24,14 @@ function App() {
   const [cards, setCards] = React.useState([]);
 
   function handleDeleteCard(card) {
-    api.deleteCardApi(card._id).then(() => {
-      setCards((state) => state.filter((c) => (c._id === card._id ? "" : c)));
-    });
+    api
+      .deleteCardApi(card._id)
+      .then(() => {
+        setCards((state) => state.filter((c) => (c._id === card._id ? "" : c)));
+      })
+      .catch((err) => {
+        console.log(`Возникла ошибка. ${err}`);
+      });
   }
 
   function handleCardLike(card) {
@@ -34,10 +39,16 @@ function App() {
     const isLiked = card.likes.some((i) => i._id === currentUser._id);
 
     // Отправляем запрос в API и получаем обновлённые данные карточки
-    api.changeLikeCardStatus(card._id, isLiked).then((newCard) => {
-      // console.log(newCard);
-      setCards((state) => state.map((c) => (c._id === card._id ? newCard : c)));
-    });
+    api
+      .changeLikeCardStatus(card._id, isLiked)
+      .then((newCard) => {
+        setCards((state) =>
+          state.map((c) => (c._id === card._id ? newCard : c))
+        );
+      })
+      .catch((err) => {
+        console.log(`Возникла ошибка. ${err}`);
+      });
   }
 
   React.useEffect(() => {
@@ -87,12 +98,12 @@ function App() {
       .setUserInfoApi(user)
       .then((data) => {
         setCurrentUser(data);
+        closeAllPopups();
       })
       .catch((err) => {
-        console.log(err);
+        console.log(`Возникла ошибка. ${err}`);
       })
       .finally(() => {
-        closeAllPopups();
       });
   }
 
@@ -101,12 +112,12 @@ function App() {
       .setUserAvatarApi(avatar)
       .then((data) => {
         setCurrentUser(data);
+        closeAllPopups();
       })
       .catch((err) => {
-        console.log(err);
+        console.log(`Возникла ошибка. ${err}`);
       })
       .finally(() => {
-        closeAllPopups();
       });
   }
 
@@ -115,15 +126,15 @@ function App() {
       .addNewCardApi(newCard)
       .then((data) => {
         setCards([data, ...cards]);
+        closeAllPopups();
       })
       .catch((err) => {
-        console.log(err);
+        console.log(`Возникла ошибка. ${err}`);
       })
       .finally(() => {
-        closeAllPopups();
       });
   }
-  
+
   function closeAllPopups() {
     setEditAvatarPopupOpen(false);
     setEditProfilePopupOpen(false);
@@ -172,7 +183,7 @@ function App() {
         <PopupWithForm
           title="Вы уверены?"
           name="deletecard"
-          button="Да"
+          buttontext="Да"
           onClose={closeAllPopups}
         />
 
